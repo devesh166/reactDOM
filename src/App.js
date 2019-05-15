@@ -1,26 +1,41 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom';
+export default class App extends Component {
+  constructor() {
+    super();
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    this.textInput = React.createRef();
+
+  }
+  onClickHandler = (str) => {
+    console.log(str)
+    this.textInput.current.focus();
+    this.textInput.current.value = str;
+
+  }
+
+  render() {
+    return (
+      React.createElement('div', {},
+        React.createElement('h1', {}, 'My favorite ice cream flavors'),
+      
+        React.createElement('ul', {},
+          [
+            React.createElement('li', { onClick: () => { this.onClickHandler('Chocolate') } }, 'Chocolate'),
+            React.createElement('li', { onClick: () => { this.onClickHandler('Vanilla') } }, 'Vanilla'),
+            React.createElement('li', { onClick: () => { this.onClickHandler('Banana') } }, 'Banana')
+          ]
+        ),
+        React.createElement('input', { ref: this.textInput })
+
+      )
+
+    )
+  }
 }
 
-export default App;
+ReactDOM.render(
+  React.createElement(App, null),
+  document.getElementById('root')
+)
